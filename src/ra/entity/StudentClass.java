@@ -2,19 +2,20 @@ package ra.entity;
 
 import java.util.Scanner;
 
-public  class StudentClass implements IStudentManagement{
+public class StudentClass implements IStudentManagement{
     private String classId;
-    private  String className;
-    private String descripTions;
-    private int classStatu;
-    private String ClassId;
+    private String className;
+    private String descriptions;
+    private int classStatus;
 
-    public StudentClass(String classId, String className, String descripTions, int classStatu, String classId1) {
+    public StudentClass() {
+    }
+
+    public StudentClass(String classId, String className, String descriptions, int classStatus) {
         this.classId = classId;
         this.className = className;
-        this.descripTions = descripTions;
-        this.classStatu = classStatu;
-        ClassId = classId1;
+        this.descriptions = descriptions;
+        this.classStatus = classStatus;
     }
 
     public String getClassId() {
@@ -33,40 +34,55 @@ public  class StudentClass implements IStudentManagement{
         this.className = className;
     }
 
-    public String getDescripTions() {
-        return descripTions;
+    public String getDescriptions() {
+        return descriptions;
     }
 
-    public void setDescripTions(String descripTions) {
-        this.descripTions = descripTions;
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
     }
 
-    public int getClassStatu() {
-        return classStatu;
+    public int getClassStatus() {
+        return classStatus;
     }
 
-    public void setClassStatu(int classStatu) {
-        this.classStatu = classStatu;
+    public void setClassStatus(int classStatus) {
+        this.classStatus = classStatus;
     }
 
     @Override
-    public void inputData() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("nhập thông tin lớp");
-        System.out.println("mã lớp ");
-        while (this.ClassId.trim().length()<=10){
-            System.out.println("tên lớp tối đa 10 ký tự");
+    public void inputData(Scanner sc) {
+        System.out.println("Nhap vao ma lop: ");
+        do {
+            this.classId = sc.nextLine();
+            if (this.classId.trim().length()==5){
+                if (this.classId.charAt(0)=='J'){
+                    break;
+                }else{
+                    System.err.println("Vui long nhap ma lop bat dau la ky tu J");
+                }
+            }else{
+                System.err.println("Vui long nhap ma lop gom 5 ky tu");
+            }
+        }while(true);
+        System.out.println("Nhap vao ten lop: ");
+        do {
             this.className = sc.nextLine();
-        }
-        System.out.println("mô tả lớp");
-        this.descripTions = sc.nextLine();
-        System.out.println("trạng thái lớp");
-        this.classStatu = Integer.parseInt(sc.nextLine());
+            if (this.className.trim().length()<=10){
+                break;
+            }else{
+                System.err.println("Vui long nhap ten lop toi da 10 ky tu");
+            }
+        }while(true);
+        System.out.println("Nhap vao mo ta lop: ");
+        this.descriptions = sc.nextLine();
+        System.out.println("Nhap vao trang thai cua lop: ");
+        this.classStatus = Integer.parseInt(sc.nextLine());
 
     }
 
     @Override
     public void displayData() {
-
+        System.out.printf("Ma Lop: %s - Ten Lop: %s - Mo ta: %s - Trang thai: %d\n",this.classId,this.className,this.descriptions,this.classStatus);
     }
 }
